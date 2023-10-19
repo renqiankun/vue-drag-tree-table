@@ -60,9 +60,9 @@ export default {
           this.expandRowKeys.push(row.id)
         }
     },
-    onTreeDataChange(newAllList,currentItem,targetItem, where) {
-      console.log(newAllList,currentItem,targetItem, where)
-      this.treeData.lists = newAllList;
+    onTreeDataChange(list,current,target,where,parent) {
+      console.log(list)
+      this.treeData.lists = list;
     },
     onAdd(pId, data) {
       this.$refs.table.AddRow(pId, data)

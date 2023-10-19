@@ -248,7 +248,7 @@ export default {
         const targetRow = this.getItemById(this.data.lists, targetId);
         canDrag = this.beforeDragOver(curRow, targetRow, whereInsert);
       }
-      if (canDrag == false) return;
+      if (canDrag == false || !hoverBlock) return;
       hoverBlock.style.display = "block";
       let rowHeight = row.offsetHeight;
       if (whereInsert == "bottom") {
@@ -315,14 +315,9 @@ export default {
       }
       pushData(curList, newList);
       this.resetOrder(newList);
-      this.onDrag(newList, curDragItem, taggetItem, _this.whereInsert);
-      this.$emit(
-        "dragEnd",
-        newList,
-        curDragItem,
-        taggetItem,
-        _this.whereInsert
-      );
+      let parent =  _this.getItemById(newList, curDragItem[this.custom_field.parent_id]);
+      this.onDrag(newList,curDragItem,taggetItem,_this.whereInsert,parent);
+      this.$emit( "dragEnd",newList,curDragItem,taggetItem,_this.whereInsert,parent );
     },
     // 重置所有数据的顺序order
     resetOrder(list) {

@@ -13,6 +13,7 @@
       :expandRowKeys="expandRowKeys"
       resize
       fixed
+      :default_field="{id:'id',order:'order', parent_id: 'parent_id', lists: 'children' }"
       :isdraggable="true">
     <template #selection="{row}">
       {{ row.name }}
@@ -59,9 +60,9 @@ export default {
           this.expandRowKeys.push(row.id)
         }
     },
-    onTreeDataChange(list) {
-      console.log(list)
-      this.treeData.lists = list;
+    onTreeDataChange(newAllList,currentItem,targetItem, where) {
+      console.log(newAllList,currentItem,targetItem, where)
+      this.treeData.lists = newAllList;
     },
     onAdd(pId, data) {
       this.$refs.table.AddRow(pId, data)

@@ -11,6 +11,7 @@
       @dragEnd="onTreeDataChange"
       @expandChange="expandChange"
       :expandRowKeys="expandRowKeys"
+      @scroll="scrollHand"
       resize
       fixed
       :default_field="{id:'id',order:'order', parent_id: 'parent_id', lists: 'children' }"
@@ -90,7 +91,10 @@ export default {
     },
     edit(row) {
       this.$refs.editDialog.show('edit', row);
-    }
+    },
+    scrollHand(){
+      // console.log(11)
+    },
   },
   mounted() {
     var columns = [
@@ -105,12 +109,21 @@ export default {
       {
         title: "ID",
         field: "id",
-        align: "center"
+        align: "center",
+        width: 100,
+
       },
       {
         title: "链接",
         field: "uri",
-        align: "center"
+        align: "center",
+        width: 100,
+      },
+      {
+        title: "排序",
+        field: "order",
+        align: "center",
+        width: 100,
       },
       {
         title: "操作(使用slot自定义)",

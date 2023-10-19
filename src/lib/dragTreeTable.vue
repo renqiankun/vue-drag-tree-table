@@ -169,11 +169,13 @@ export default {
       let scrollEnd = 0
       if (e.clientY < 100) {
         scrollEnd = scrollY - 6
+        this.scrollNode?.scrollTo?.(0, scrollEnd);
+        this.$emit('scroll',{x:0,y: scrollEnd})
       } else if (e.clientY > document.body.clientHeight - 160) {
-        scrollEnd = scrollY - 6
+        scrollEnd =  scrollY + 6
+        this.scrollNode?.scrollTo?.(0, scrollEnd);
+        this.$emit('scroll',{x:0,y: scrollEnd})
       }
-      this.scrollNode?.scrollTo?.(0,scrollEnd);
-      this.$emit('scroll',{x:0,y:scrollEnd})
     },
     drop(event) {
       func.clearHoverStatus();
@@ -321,18 +323,19 @@ export default {
         }
       }
       pushData(curList, newList);
-      this.resetOrder(newList);
+      this.resetOrder(newList,curDragItem[this.custom_field.parent_id]);
       let parent =  _this.getItemById(newList, curDragItem[this.custom_field.parent_id]);
       this.onDrag(newList,curDragItem,taggetItem,_this.whereInsert,parent);
       this.$emit( "dragEnd",newList,curDragItem,taggetItem,_this.whereInsert,parent );
     },
     // 重置所有数据的顺序order
-    resetOrder(list) {
+    resetOrder(list,pid) {
       const listKey = this.custom_field.lists;
       for (var i = 0; i < list.length; i++) {
-        list[i][this.custom_field.order] = i;
-        if (list[i][listKey] && list[i][listKey].length) {
-          this.resetOrder(list[i][listKey]);
+        if(list[i][this.custom_field.parent_id] == pid){
+          list[i][this.custom_field.order] = i;
+        }else if (list[i][listKey] && list[i][listKey].length) {
+          this.resetOrder(list[i][listKey],pid);
         }
       }
     },
@@ -543,24 +546,8 @@ export default {
         curColWidth,
       };
     },
-  },
-  mounted() {
-    if (this.data.custom_field) {
-      this.custom_field = Object.assign(
-        {},
-        this.custom_field,
-        this.data.custom_field
-      );
-    }
-    setTimeout(() => {
-      this.data.columns.forEach((item) => {
-        if (item.type == "checkbox") {
-          this.onCheckChange = item.onChange;
-          this.isContainChildren = item.isContainChildren;
-        }
-      });
-    }, 100);
-    window.addEventListener("mouseup", (e) => {
+
+    mouseupHand(e){
       if (this.mouse.status) {
         const curX = e.clientX;
         var line = document.querySelector(".drag-line");
@@ -582,8 +569,8 @@ export default {
         // 更新数据源
         this.data.columns[this.mouse.curIndex].width = lastWidth;
       }
-    });
-    window.addEventListener("mousemove", (e) => {
+    },
+    mousemoveHand(e){
       if (this.mouse.status) {
         const endX = e.clientX;
         const tableLeft = document
@@ -592,7 +579,33 @@ export default {
         var line = document.querySelector(".drag-line");
         line.style.left = endX - tableLeft + "px";
       }
-    });
+    }
+  },
+  mounted() {
+    if (this.data.custom_field) {
+      this.custom_field = Object.assign(
+        {},
+        this.custom_field,
+        this.data.custom_field
+      );
+    }
+    setTimeout(() => {
+      this.data.columns.forEach((item) => {
+        if (item.type == "checkbox") {
+          this.onCheckChange = item.onChange;
+          this.isContainChildren = item.isContainChildren;
+        }
+      });
+    }, 100);
+
+    let _this = this
+    window.addEventListener("mouseup", _this.mouseupHand);
+    window.addEventListener("mousemove", _this.mousemoveHand);
+  },
+  destroyed() {
+    let _this = this
+    window.removeEventListener('mouseup', _this.mouseupHand)
+    window.removeEventListener('mousemove', _this.mousemoveHand)
   },
 };
 </script>

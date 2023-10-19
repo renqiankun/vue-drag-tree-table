@@ -2,7 +2,7 @@ const demoDataList =  [
     {
       id: 110,
       parent_id: 0,
-      order: 0,
+      order: 2,
       name: "客户管理",
       uri: "无",
       open: true,
@@ -88,7 +88,7 @@ const demoDataList =  [
     {
       id: 404,
       parent_id: 0,
-      order: 1,
+      order: 4,
       name: "审核中心",
       uri: "无",
       children: [
@@ -105,7 +105,7 @@ const demoDataList =  [
     {
       id: 306,
       parent_id: 0,
-      order: 2,
+      order: 5,
       name: "数据统计",
       uri: "无",
       children: [
@@ -130,7 +130,7 @@ const demoDataList =  [
     {
       id: 334,
       parent_id: 0,
-      order: 3,
+      order: 7,
       name: "基础数据",
       uri: "",
       children: [
@@ -155,7 +155,7 @@ const demoDataList =  [
     {
       id: 9,
       parent_id: 0,
-      order: 4,
+      order: 8,
       name: "系统管理",
       uri: "",
       open: false,

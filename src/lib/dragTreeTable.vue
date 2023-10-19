@@ -547,6 +547,9 @@
           for (let index = 0; index < cols.length; index++) {
             const element = cols[index];
             element.style.width = lastWidth + 'px'; 
+            if(element.getAttribute('isflex')){
+              element.style.minWidth = lastWidth + 'px'; 
+            }
           }
           // 更新数据源
           this.data.columns[this.mouse.curIndex].width = lastWidth;

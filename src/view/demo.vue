@@ -8,7 +8,7 @@
     <dragTreeTable
       ref="table"
       :data="treeData"
-      @drag="onTreeDataChange"
+      @dragEnd="onTreeDataChange"
       @expandChange="expandChange"
       :expandRowKeys="expandRowKeys"
       resize
@@ -60,7 +60,7 @@ export default {
         }
     },
     onTreeDataChange(list) {
-      console.log(list);
+      console.log(list)
       this.treeData.lists = list;
     },
     onAdd(pId, data) {

@@ -134,7 +134,7 @@
             id: 'id',
             parent_id: 'parent_id',
             order: 'order',
-            lists: 'lists',
+            lists: 'children',
             open: 'open',
             checked: 'checked',
             highlight: 'highlight'
@@ -222,7 +222,7 @@
         if (targetId === undefined) {
           // 匹配不到清空上一个状态
           func.clearHoverStatus();
-          let whereInsert = '';
+           whereInsert = '';
           return;
         }
         
@@ -302,7 +302,7 @@
         pushData(curList, newList)
         this.resetOrder(newList)
         this.onDrag(newList, curDragItem, taggetItem, _this.whereInsert)
-        this.$emit("drag",newList, curDragItem, taggetItem, _this.whereInsert);
+        this.$emit("dragEnd",newList, curDragItem, taggetItem, _this.whereInsert);
       },
       // 重置所有数据的顺序order
       resetOrder(list) {

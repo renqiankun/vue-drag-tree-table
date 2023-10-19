@@ -102,7 +102,6 @@
             // expandRowKeys控制
             currentIsOpen(){
                 return this.expandRowKeys?.some?.(id=>{
-                    console.log(id , this.model[this.custom_field.id])
                     return id === this.model[this.custom_field.id]
                 })
             },

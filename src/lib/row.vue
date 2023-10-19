@@ -53,7 +53,7 @@
                 </div>
             </div>
             <row 
-                v-show="currentIsOpen"
+                v-if="isFolder && currentIsOpen"
                 v-for="(item, index) in model[custom_field.lists]" 
                 :model="item"
                 :columns="columns"
@@ -65,7 +65,7 @@
                 :onCheck="onCheck"
                 :expandRowKeys="expandRowKeys"
                 :isContainChildren="isContainChildren"
-                v-if="isFolder">
+                >
                     <template v-slot:selection="{row}">
                     <slot name="selection" v-bind:row="row"></slot>
                     </template>

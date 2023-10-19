@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div id="container">
-    <button @click="zipAll">全部折叠</button>
-    <button @click="openAll">全部开</button>
+    <!-- <button @click="zipAll">全部折叠</button>
+    <button @click="openAll">全部开</button> -->
     <button @click="highlight(true)">高亮行</button>
     <button @click="highlight(false)">取消高亮</button>
     <dragTreeTable

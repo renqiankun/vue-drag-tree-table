@@ -105,6 +105,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    scrollNode:{
+      type:null,
+      default:()=>(window)
+    },
     data: Object,
     onDrag: {
       type: Function,
@@ -162,11 +166,14 @@ export default {
       this.dragX = e.pageX;
       this.dragY = e.clientY;
       this.filter(e.pageX, e.clientY);
+      let scrollEnd = 0
       if (e.clientY < 100) {
-        window.scrollTo(0, scrollY - 6);
+        scrollEnd = scrollY - 6
       } else if (e.clientY > document.body.clientHeight - 160) {
-        window.scrollTo(0, scrollY + 6);
+        scrollEnd = scrollY - 6
       }
+      this.scrollNode?.scrollTo?.(0,scrollEnd);
+      this.$emit('scroll',{x:0,y:scrollEnd})
     },
     drop(event) {
       func.clearHoverStatus();

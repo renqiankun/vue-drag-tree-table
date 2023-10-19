@@ -1,10 +1,11 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
+import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 // https://vitejs.dev/config/
 export default defineConfig({
   base:'./',
-  plugins: [vue()],
+  plugins: [vue(),cssInjectedByJsPlugin()],
   build:{
     outDir: path.join(__dirname, 'lib'),
     lib:{
@@ -15,6 +16,7 @@ export default defineConfig({
     rollupOptions:{
       external:['vue'],
       output: {
+        manualChunks: undefined,
         globals: {
           vue: 'Vue',
         },
